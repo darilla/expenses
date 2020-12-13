@@ -4,12 +4,14 @@ import { Button, Popconfirm, Table as AntdTable, Form } from 'antd';
 
 import useTableDetails from './hooks/useTableDetails';
 
+import { getUniqueNames } from '../../common/utils';
+
 import { EditableCell, TagsRenderer } from './components';
 import { TABLE_I18N, TAGS } from './constants';
 
 const { ADD_ROW_BTN, SAVE_BTN, CANCEL_BTN, DELETE_BTN, EDIT_BTN } = TABLE_I18N;
 
-const filterList = (value, element) => element.indexOf(value) === 0;
+const filterList = (value, array) => array.includes(value);
 
 const components = {
   body: {
@@ -35,7 +37,7 @@ function Table({ records }) {
     {
       dataIndex: 'name',
       editable: true,
-      filters: data.map(record => ({ text: record.name, value: record.name })),
+      filters: getUniqueNames(data),
       onFilter: (value, record) => filterList(value, record.name),
       title: 'Name',
       width: 200,
@@ -57,7 +59,7 @@ function Table({ records }) {
       dataIndex: 'tags',
       width: 200,
       onFilter: (value, record) => filterList(value, record.tags),
-      filters: TAGS.map(tag => ({ text: tag, value: tag })),
+      filters: TAGS,
       render: TagsRenderer,
     },
     {

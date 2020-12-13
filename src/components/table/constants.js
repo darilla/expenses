@@ -9,7 +9,7 @@ export const TAG = {
     color: 'geekblue',
     name: 'cats',
   },
-  selfGift: {
+  'self-gift': {
     color: 'cyan',
     name: 'self-gift',
   },
@@ -23,7 +23,10 @@ export const TAG = {
   },
 };
 
-export const TAGS = Object.keys(TAG).map(key => TAG[key].name);
+export const TAGS = Object.keys(TAG).map(key => ({
+  text: TAG[key].name,
+  value: TAG[key].name,
+}));
 
 export const ROW_DEFAULT_FIELDS = {
   costs: 0,

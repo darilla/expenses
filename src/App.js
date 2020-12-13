@@ -13,7 +13,7 @@ const MOCK_DATA = [
     name: 'Peter',
     date: '11 October 2020',
     costs: 120,
-    tags: ['shopping', 'selfGift'],
+    tags: ['shopping', 'self-gift'],
     note: '-',
   },
   {
@@ -38,6 +38,14 @@ const MOCK_DATA = [
     date: '5 December 2020',
     costs: 98,
     tags: ['gifts'],
+    note: '-',
+  },
+  {
+    key: 4,
+    name: 'Suzana',
+    date: '5 December 2020',
+    costs: 98,
+    tags: ['self-gift'],
     note: '-',
   },
 ];
