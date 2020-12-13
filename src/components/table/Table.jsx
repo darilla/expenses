@@ -3,8 +3,8 @@ import { instanceOf } from 'prop-types';
 import { Button, Popconfirm, Table as AntdTable, Form } from 'antd';
 
 import useTableDetails from './hooks/useTableDetails';
-
 import { getUniqueNames } from '../../common/utils';
+import { EMPTY_ARRAY } from '../../common/constants';
 
 import { EditableCell, TagsRenderer } from './components';
 import { TABLE_I18N, TAGS } from './constants';
@@ -60,7 +60,7 @@ function Table({ records }) {
       width: 200,
       onFilter: (value, record) => filterList(value, record.tags),
       filters: TAGS,
-      render: TagsRenderer,
+      render: (tags, record) => TagsRenderer(tags, isEditing(record)),
     },
     {
       title: 'Note',
@@ -71,9 +71,9 @@ function Table({ records }) {
       title: 'Action',
       key: 'action',
       render: (_, record) => {
-        const editable = isEditing(record);
+        const isRowEditable = isEditing(record);
 
-        return editable ? (
+        return isRowEditable ? (
           <span>
             <Button type='primary' onClick={() => handleSave(record.key)} ghost>
               {SAVE_BTN}
@@ -135,7 +135,7 @@ function Table({ records }) {
           components={components}
           dataSource={data}
           footer={() => 'Summary'}
-          pagination={{ pageSize: 700 }}
+          pagination={{ pageSize: 100 }}
           rowClassName='editable-row'
           scroll={{ y: 700 }}
         />
@@ -149,7 +149,7 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-  records: [],
+  records: EMPTY_ARRAY,
 };
 
 export default Table;

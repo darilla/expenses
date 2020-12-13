@@ -1,15 +1,15 @@
 import { useCallback, useState } from 'react';
 import { Form } from 'antd';
 
-import { EMPTY_STRING } from '../../../common/constants';
+import { EMPTY_ARRAY, EMPTY_STRING } from '../../../common/constants';
 
 import { ROW_DEFAULT_FIELDS } from '../constants';
 
 const { useForm } = Form;
 
 function useTableDetails(records) {
-  const [data, updateData] = useState(records || []);
-  const [editingKey, setEditingKey] = useState('');
+  const [data, updateData] = useState(records || EMPTY_ARRAY);
+  const [editingKey, setEditingKey] = useState(EMPTY_STRING);
 
   const [form] = useForm();
 
