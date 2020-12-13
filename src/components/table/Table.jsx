@@ -112,9 +112,9 @@ function Table({ records }) {
     }
 
     return {
+      // Properties passed to EditableCell component.
       ...col,
       onCell: record => ({
-        record,
         inputType: col.dataIndex === 'costs' ? 'number' : 'text',
         dataIndex: col.dataIndex,
         title: col.title,
@@ -125,7 +125,7 @@ function Table({ records }) {
 
   return (
     <div>
-      <Button onClick={handleAdd} type='primary'>
+      <Button disabled={editingKey} onClick={handleAdd} type='primary'>
         {ADD_ROW_BTN}
       </Button>
       <Form form={form} component={false}>

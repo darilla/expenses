@@ -1,22 +1,24 @@
 import React from 'react';
 
-import { TAG } from '../../constants';
+import { NO_DATA_PLACEHOLDER, TAG } from '../../constants';
 
 import { StyledTag } from './TagsRenderer.styles';
 
 function TagsRenderer(tags) {
   return (
     <>
-      {tags?.map(tag => (
-        <StyledTag
-          closable
-          color={TAG[tag]?.color}
-          key={tag}
-          onClose={() => null}
-        >
-          {TAG[tag]?.name.toUpperCase()}
-        </StyledTag>
-      ))}
+      {tags.length > 0
+        ? tags.map(tag => (
+            <StyledTag
+              closable
+              color={TAG[tag]?.color}
+              key={tag}
+              onClose={() => null}
+            >
+              {TAG[tag]?.name.toUpperCase()}
+            </StyledTag>
+          ))
+        : NO_DATA_PLACEHOLDER}
     </>
   );
 }

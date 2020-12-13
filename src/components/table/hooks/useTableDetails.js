@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 import { Form } from 'antd';
 
+import { EMPTY_STRING } from '../../../common/constants';
+
 import { ROW_DEFAULT_FIELDS } from '../constants';
 
 const { useForm } = Form;
@@ -13,10 +15,13 @@ function useTableDetails(records) {
 
   const isEditing = record => record.key === editingKey;
 
-  const handleAdd = useCallback(
-    () => updateData([...data, ROW_DEFAULT_FIELDS]),
-    [data],
-  );
+  const handleAdd = useCallback(() => {
+    // todo - use generator to create unique id
+    const generateKey = Math.random();
+
+    updateData([{ ...ROW_DEFAULT_FIELDS, key: generateKey }, ...data]);
+    setEditingKey(generateKey);
+  }, [data]);
 
   const handleSave = useCallback(
     async recordKey => {
@@ -28,13 +33,13 @@ function useTableDetails(records) {
         if (index > -1) {
           const newItem = tableData[index];
 
-          tableData.splice(index, 1, { ...newItem, ...row, tags: [] });
+          tableData.splice(index, 1, { ...newItem, ...row });
         } else {
           tableData.push(row);
         }
 
         updateData(tableData);
-        setEditingKey('');
+        setEditingKey(EMPTY_STRING);
       } catch (errInfo) {
         // eslint-disable-next-line no-console
         console.log('Validate Failed:', errInfo);
@@ -52,7 +57,7 @@ function useTableDetails(records) {
     [form],
   );
 
-  const handleCancel = useCallback(() => setEditingKey(''), []);
+  const handleCancel = useCallback(() => setEditingKey(EMPTY_STRING), []);
 
   const handleDelete = recordKey => {
     const updatedDate = [...data].filter(item => item.key !== recordKey);

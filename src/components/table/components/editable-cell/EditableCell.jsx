@@ -4,26 +4,27 @@ import { Form, Input, InputNumber } from 'antd';
 
 const { Item } = Form;
 
+const DEFAULT_NAME_INPUT = 'Suzana';
+
 function EditableCell({
   children,
   dataIndex,
-  required,
   editing,
   inputType,
   ...restProps
 }) {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
-
+  const isNumber = inputType === 'number';
+  const inputNode = isNumber ? <InputNumber /> : <Input />;
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <td {...restProps}>
       {editing ? (
         <Item
           name={dataIndex}
+          initialValue={isNumber ? 0 : DEFAULT_NAME_INPUT}
           rules={[
             {
-              required,
-              // @todo - display error message when field is invalid
+              required: true,
               message: 'The value cannot be empty!',
             },
           ]}

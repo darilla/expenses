@@ -1,4 +1,7 @@
-const NO_DATA_PLACEHOLDER = 'N/A';
+import { EMPTY_ARRAY } from '../../common/constants';
+
+export const NO_DATA_PLACEHOLDER = '-';
+export const DEFAULT_NUMBER = 0;
 
 export const TAG = {
   shopping: {
@@ -29,12 +32,11 @@ export const TAGS = Object.keys(TAG).map(key => ({
 }));
 
 export const ROW_DEFAULT_FIELDS = {
-  costs: 0,
+  costs: DEFAULT_NUMBER,
   date: NO_DATA_PLACEHOLDER,
-  key: Math.random(),
   name: NO_DATA_PLACEHOLDER,
   note: NO_DATA_PLACEHOLDER,
-  tags: [NO_DATA_PLACEHOLDER],
+  tags: EMPTY_ARRAY,
 };
 
 export const TABLE_I18N = {
