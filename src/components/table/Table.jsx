@@ -50,6 +50,7 @@ function Table({ records }) {
     },
     {
       dataIndex: 'costs',
+      inputType: 'number',
       editable: true,
       sorter: (firstRecord, nextRecord) => firstRecord.costs - nextRecord.costs,
       title: 'Costs',
@@ -65,6 +66,8 @@ function Table({ records }) {
     },
     {
       title: 'Note',
+      editable: true,
+      inputType: 'textarea',
       dataIndex: 'note',
       width: 300,
     },
@@ -116,7 +119,7 @@ function Table({ records }) {
       // Properties passed to EditableCell component.
       ...col,
       onCell: record => ({
-        inputType: col.dataIndex === 'costs' ? 'number' : 'text',
+        inputType: col.inputType,
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),

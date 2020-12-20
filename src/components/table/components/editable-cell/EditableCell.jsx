@@ -2,9 +2,21 @@ import React from 'react';
 import { string, bool, instanceOf } from 'prop-types';
 import { Form, Input, InputNumber } from 'antd';
 
-const { Item } = Form;
+import { EMPTY_STRING } from '../../../../common/constants';
 
-const DEFAULT_NAME_INPUT = 'Suzana';
+const { Item } = Form;
+const { TextArea } = Input;
+
+const renderEditableCell = inputType => {
+  switch (inputType) {
+    case 'number':
+      return <InputNumber />;
+    case 'textarea':
+      return <TextArea />;
+    default:
+      return <Input />;
+  }
+};
 
 function EditableCell({
   children,
@@ -13,25 +25,11 @@ function EditableCell({
   inputType,
   ...restProps
 }) {
-  const isNumber = inputType === 'number';
-  const inputNode = isNumber ? <InputNumber /> : <Input />;
-
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <td {...restProps}>
       {editing ? (
-        <Item
-          name={dataIndex}
-          initialValue={isNumber ? 0 : DEFAULT_NAME_INPUT}
-          rules={[
-            {
-              required: true,
-              message: 'The value cannot be empty!',
-            },
-          ]}
-        >
-          {inputNode}
-        </Item>
+        <Item name={dataIndex}>{renderEditableCell(inputType)}</Item>
       ) : (
         <div>{children}</div>
       )}
@@ -50,7 +48,7 @@ EditableCell.propTypes = {
 };
 
 EditableCell.defaultProps = {
-  dataIndex: '',
+  dataIndex: EMPTY_STRING,
   editing: false,
   inputType: 'text',
   required: false,
