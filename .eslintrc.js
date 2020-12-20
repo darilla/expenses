@@ -17,6 +17,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'warn',
     'react-hooks/exhaustive-deps': 'warn',
     'jsx-a11y/anchor-is-valid': 'warn',
+    'react/no-unused-prop-types': 'warn',
     'no-unused-vars': [
       'warn',
       {

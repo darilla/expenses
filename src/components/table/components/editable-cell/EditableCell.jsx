@@ -15,6 +15,7 @@ function EditableCell({
 }) {
   const isNumber = inputType === 'number';
   const inputNode = isNumber ? <InputNumber /> : <Input />;
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <td {...restProps}>
