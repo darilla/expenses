@@ -11,3 +11,7 @@ export const StyledTag = styled(Tag)`
     display: inline-flex;
   }
 `;
+
+export const StyledNewTag = styled(StyledTag)`
+  margin-bottom: 24px;
+`;

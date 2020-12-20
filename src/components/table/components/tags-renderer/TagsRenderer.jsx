@@ -29,7 +29,7 @@ function TagsRenderer(tags = EMPTY_ARRAY, isEditing) {
   }
 
   return (
-    <>
+    <div>
       {recordTags.map(tag => (
         <StyledTag
           closable={isEditing}
@@ -44,7 +44,7 @@ function TagsRenderer(tags = EMPTY_ARRAY, isEditing) {
       {isEditing && (
         <NewTag recordTags={recordTags} updateRecordTags={updateRecordTags} />
       )}
-    </>
+    </div>
   );
 }
 

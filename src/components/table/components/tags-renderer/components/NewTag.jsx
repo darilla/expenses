@@ -7,7 +7,7 @@ import { EMPTY_ARRAY, EMPTY_STRING } from '../../../../../common/constants';
 
 import { TAG } from '../../../constants';
 
-import { StyledTag } from '../TagsRenderer.styles';
+import { StyledNewTag } from '../TagsRenderer.styles';
 
 const INPUT_STYLE = { width: 78, marginLeft: '5px' };
 
@@ -53,10 +53,10 @@ function NewTag({ recordTags, updateRecordTags }) {
           value={inputValue}
         />
       ) : (
-        <StyledTag onClick={handleClick}>
+        <StyledNewTag onClick={handleClick}>
           <PlusOutlined />
           <span>New Tag</span>
-        </StyledTag>
+        </StyledNewTag>
       )}
     </div>
   );

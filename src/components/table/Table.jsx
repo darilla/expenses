@@ -6,7 +6,7 @@ import useTableDetails from './hooks/useTableDetails';
 import { getUniqueNames } from '../../common/utils';
 import { EMPTY_ARRAY } from '../../common/constants';
 
-import { EditableCell, TagsRenderer } from './components';
+import { EditableCell, TagsRenderer, DateRenderer } from './components';
 import { TABLE_I18N, TAGS } from './constants';
 
 const { ADD_ROW_BTN, SAVE_BTN, CANCEL_BTN, DELETE_BTN, EDIT_BTN } = TABLE_I18N;
@@ -45,7 +45,8 @@ function Table({ records }) {
     {
       dataIndex: 'date',
       title: 'Date',
-      width: 250,
+      render: (date, record) => DateRenderer(date, isEditing(record)),
+      width: 400,
     },
     {
       dataIndex: 'costs',
