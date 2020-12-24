@@ -1,11 +1,9 @@
 import React from 'react';
 import 'sanitize.css';
 import 'antd/dist/antd.css';
-import { Typography } from 'antd';
 
-import { Table } from './components';
-
-const { Title } = Typography;
+import { Table, Navigation } from './components';
+import { Container } from './App.styles';
 
 const MOCK_DATA = [
   {
@@ -52,10 +50,10 @@ const MOCK_DATA = [
 
 function App() {
   return (
-    <div>
-      <Title>Expenses</Title>
+    <Container>
+      <Navigation />
       <Table records={MOCK_DATA} />
-    </div>
+    </Container>
   );
 }
 

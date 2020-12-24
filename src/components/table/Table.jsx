@@ -1,15 +1,22 @@
 import React from 'react';
 import { instanceOf } from 'prop-types';
-import { Button, Popconfirm, Table as AntdTable, Form } from 'antd';
+import { Table as AntdTable, Form } from 'antd';
 
-import useTableDetails from './hooks/useTableDetails';
 import { getUniqueNames } from '../../common/utils';
 import { EMPTY_ARRAY } from '../../common/constants';
 
-import { EditableCell, TagsRenderer, DateRenderer } from './components';
-import { TABLE_I18N, TAGS } from './constants';
+import useTableDetails from './hooks/useTableDetails';
 
-const { ADD_ROW_BTN, SAVE_BTN, CANCEL_BTN, DELETE_BTN, EDIT_BTN } = TABLE_I18N;
+import {
+  ActionButtons,
+  DateRenderer,
+  EditableCell,
+  TagsRenderer,
+} from './components';
+import { TABLE_I18N, TAGS } from './constants';
+import { Container, StyledAddRowButton } from './Table.styles';
+
+const { ADD_ROW_BTN } = TABLE_I18N;
 
 const filterList = (value, array) => array.includes(value);
 
@@ -21,15 +28,15 @@ const components = {
 
 function Table({ records }) {
   const {
-    handleDelete,
+    data,
+    editingKey,
+    form,
+    handleAdd,
     handleCancel,
+    handleDelete,
     handleEdit,
     handleSave,
-    handleAdd,
     isEditing,
-    form,
-    editingKey,
-    data,
   } = useTableDetails(records);
 
   // @todo - refactor
@@ -74,39 +81,17 @@ function Table({ records }) {
     {
       title: 'Action',
       key: 'action',
-      render: (_, record) => {
-        const isRowEditable = isEditing(record);
-
-        return isRowEditable ? (
-          <span>
-            <Button type='primary' onClick={() => handleSave(record.key)} ghost>
-              {SAVE_BTN}
-            </Button>
-            <Popconfirm title='Sure to cancel?' onConfirm={handleCancel}>
-              <Button type='dashed' danger>
-                {CANCEL_BTN}
-              </Button>
-            </Popconfirm>
-          </span>
-        ) : (
-          <div>
-            <Button
-              disabled={editingKey !== ''}
-              onClick={() => handleEdit(record)}
-            >
-              {EDIT_BTN}
-            </Button>
-            <Button
-              disabled={editingKey !== ''}
-              type='danger'
-              onClick={() => handleDelete(record.key)}
-              ghost
-            >
-              {DELETE_BTN}
-            </Button>
-          </div>
-        );
-      },
+      render: (_, record) => (
+        <ActionButtons
+          editingKey={editingKey}
+          handleCancel={handleCancel}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          isRowEditable={isEditing(record)}
+          record={record}
+        />
+      ),
     },
   ];
 
@@ -128,23 +113,26 @@ function Table({ records }) {
   });
 
   return (
-    <div>
-      <Button disabled={editingKey} onClick={handleAdd} type='primary'>
+    <Container>
+      <StyledAddRowButton
+        disabled={editingKey}
+        onClick={handleAdd}
+        type='primary'
+      >
         {ADD_ROW_BTN}
-      </Button>
+      </StyledAddRowButton>
       <Form form={form} component={false}>
         <AntdTable
           bordered
+          sticky
           columns={columns}
           components={components}
           dataSource={data}
-          footer={() => 'Summary'}
-          pagination={{ pageSize: 100 }}
-          rowClassName='editable-row'
-          scroll={{ y: 700 }}
+          pagination={false}
+          tableLayout='flex'
         />
       </Form>
-    </div>
+    </Container>
   );
 }
 
