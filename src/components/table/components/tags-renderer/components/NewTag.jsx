@@ -1,54 +1,92 @@
 import React, { useCallback, useState } from 'react';
 import { func, instanceOf } from 'prop-types';
-import { Input } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Input, Form } from 'antd';
+import { PlusOutlined, WarningTwoTone } from '@ant-design/icons';
 
-import { EMPTY_ARRAY, EMPTY_STRING } from '../../../../../common/constants';
+import {
+  EMPTY_ARRAY,
+  EMPTY_STRING,
+  NO_VALUE,
+} from '../../../../../common/constants';
 
 import { TAG } from '../../../constants';
 
 import { StyledNewTag } from '../TagsRenderer.styles';
 
-const INPUT_STYLE = { width: 78, marginLeft: '5px' };
+const NOT_EXISTING_DATA = -1;
+const INPUT_STYLE = { width: '170px' };
+const { Item } = Form;
+
+const getRandomColor = () =>
+  `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 function NewTag({ recordTags, updateRecordTags }) {
+  const [warning, setWarning] = useState(NO_VALUE);
   const [inputVisible, toggleInput] = useState(false);
   const [inputValue, setInputValue] = useState(EMPTY_STRING);
 
-  const handleChange = useCallback(e => setInputValue(e.target.value), []);
-  const handleClick = useCallback(() => toggleInput(!inputValue), [inputValue]);
+  const handleChange = useCallback(
+    e => {
+      const { value } = e.target;
+      if (recordTags.indexOf(value) !== NOT_EXISTING_DATA) {
+        setWarning('This field has been added');
+      } else if (!value) {
+        setWarning('The field cannot be empty');
+      } else {
+        setWarning(NO_VALUE);
+      }
+      setInputValue(e.target.value);
+    },
+    [recordTags],
+  );
 
+  const handleClick = useCallback(() => toggleInput(true), []);
+
+  // eslint-disable-next-line consistent-return
   const handleInputConfirm = () => {
-    let updatedTags = [...recordTags];
-
     /**
-     * 1. Check if value is not empty string.
-     * 2. Check if tag exists in default tags list.
-     * 3. Check if tag hasn't been already added.
+     * 1. Check if value is empty string.
+     * 2. Check if tag has been already added.
      */
-    if (
-      inputValue &&
-      TAG[inputValue] &&
-      recordTags.indexOf(inputValue) === -1
-    ) {
-      updatedTags = [...recordTags, inputValue];
+    if (!inputValue || recordTags.indexOf(inputValue) !== NOT_EXISTING_DATA) {
+      return;
     }
 
+    // Check if tag exists in default tags list.
+    if (!TAG[inputValue]) {
+      TAG[inputValue] = {
+        color: getRandomColor(),
+        name: inputValue,
+      };
+    }
+
+    updateRecordTags([...recordTags, inputValue]);
+
     setInputValue(EMPTY_STRING);
-    toggleInput(false);
-    updateRecordTags(updatedTags);
     // @todo - show notification that the tag is not on the list.
   };
 
+  const closeEditableTag = useCallback(() => {
+    if (!inputValue) {
+      toggleInput(false);
+    }
+  }, [inputValue]);
+
   return (
-    <div>
+    <Item
+      validateStatus={warning ? 'warning' : 'success'}
+      help={inputVisible && warning}
+    >
       {inputVisible ? (
         <Input
-          onBlur={handleInputConfirm}
+          allowClear
+          autoFocus
+          maxLength={30}
+          onBlur={closeEditableTag}
           onChange={handleChange}
           onPressEnter={handleInputConfirm}
-          size='small'
           style={INPUT_STYLE}
+          suffix={warning && <WarningTwoTone twoToneColor='#ebb92f' />}
           type='text'
           value={inputValue}
         />
@@ -58,7 +96,7 @@ function NewTag({ recordTags, updateRecordTags }) {
           <span>New Tag</span>
         </StyledNewTag>
       )}
-    </div>
+    </Item>
   );
 }
 

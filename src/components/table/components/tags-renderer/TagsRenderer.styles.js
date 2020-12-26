@@ -13,5 +13,6 @@ export const StyledTag = styled(Tag)`
 `;
 
 export const StyledNewTag = styled(StyledTag)`
-  margin-bottom: 24px;
+  cursor: pointer;
+  height: 30px;
 `;

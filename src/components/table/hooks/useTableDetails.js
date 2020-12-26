@@ -1,7 +1,14 @@
+/* eslint-disable no-param-reassign */
 import { useCallback, useState } from 'react';
 import { Form } from 'antd';
+import moment from 'moment';
 
-import { EMPTY_ARRAY, EMPTY_STRING } from '../../../common/constants';
+import {
+  EMPTY_ARRAY,
+  EMPTY_STRING,
+  DATE_FORMAT,
+  NO_VALUE,
+} from '../../../common/constants';
 
 import { ROW_DEFAULT_FIELDS } from '../constants';
 
@@ -9,7 +16,7 @@ const { useForm } = Form;
 
 function useTableDetails(records) {
   const [data, updateData] = useState(records || EMPTY_ARRAY);
-  const [editingKey, setEditingKey] = useState(EMPTY_STRING);
+  const [editingKey, setEditingKey] = useState(NO_VALUE);
 
   const [form] = useForm();
 
@@ -19,9 +26,12 @@ function useTableDetails(records) {
     // todo - use generator to create unique id
     const generateKey = Math.random();
 
+    // Set initial values for a new record.
+    form.setFieldsValue({ ...ROW_DEFAULT_FIELDS, key: generateKey });
+
     updateData([{ ...ROW_DEFAULT_FIELDS, key: generateKey }, ...data]);
     setEditingKey(generateKey);
-  }, [data]);
+  }, [data, form]);
 
   const handleSave = useCallback(
     async recordKey => {
@@ -30,16 +40,13 @@ function useTableDetails(records) {
         const tableData = [...data];
         const index = tableData.findIndex(item => recordKey === item.key);
 
-        if (index > -1) {
-          const newItem = tableData[index];
-
-          tableData.splice(index, 1, { ...newItem, ...row });
-        } else {
-          tableData.push(row);
-        }
+        // Edit record.
+        const dateString = row.date.format(DATE_FORMAT);
+        // The date value for non-editable field should be a string.
+        tableData.splice(index, 1, { ...row, date: dateString });
 
         updateData(tableData);
-        setEditingKey(EMPTY_STRING);
+        setEditingKey(NO_VALUE);
       } catch (errInfo) {
         // eslint-disable-next-line no-console
         console.log('Validate Failed:', errInfo);
@@ -50,7 +57,10 @@ function useTableDetails(records) {
 
   const handleEdit = useCallback(
     record => {
-      form.setFieldsValue(record);
+      // The date value for editable field needs to be a moment object.
+      const momentDate = moment(record.date, [DATE_FORMAT]);
+
+      form.setFieldsValue({ ...record, date: momentDate });
 
       setEditingKey(record.key);
     },

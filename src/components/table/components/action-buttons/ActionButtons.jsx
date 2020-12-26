@@ -1,8 +1,8 @@
 import React from 'react';
-import { func, instanceOf, bool, string } from 'prop-types';
+import { func, instanceOf, bool, number } from 'prop-types';
 import { Button, Popconfirm } from 'antd';
 
-import { EMPTY_STRING } from '../../../../common/constants';
+import { NO_VALUE } from '../../../../common/constants';
 
 import { TABLE_I18N } from '../../constants';
 
@@ -22,7 +22,7 @@ function ActionButtons({
   isRowEditable,
   record,
 }) {
-  const isButtonDisabled = editingKey !== EMPTY_STRING;
+  const isButtonDisabled = editingKey !== NO_VALUE;
 
   return isRowEditable ? (
     <div>
@@ -53,7 +53,7 @@ function ActionButtons({
 }
 
 ActionButtons.propTypes = {
-  editingKey: string,
+  editingKey: number,
   handleCancel: func.isRequired,
   handleDelete: func.isRequired,
   handleEdit: func.isRequired,
@@ -63,7 +63,7 @@ ActionButtons.propTypes = {
 };
 
 ActionButtons.defaultProps = {
-  editingKey: EMPTY_STRING,
+  editingKey: null,
   isRowEditable: false,
 };
 

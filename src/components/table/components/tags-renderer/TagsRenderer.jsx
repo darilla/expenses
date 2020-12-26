@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useState } from 'react';
+import { instanceOf, bool } from 'prop-types';
 import { CloseOutlined } from '@ant-design/icons';
 
 import { EMPTY_ARRAY } from '../../../../common/constants';
@@ -10,7 +10,7 @@ import NewTag from './components/NewTag';
 
 import { StyledTag } from './TagsRenderer.styles';
 
-function TagsRenderer(tags = EMPTY_ARRAY, isEditing) {
+function TagsRenderer({ tags, isEditing }) {
   const [recordTags, updateRecordTags] = useState(tags);
 
   const handleCloseTag = useCallback(
@@ -47,5 +47,14 @@ function TagsRenderer(tags = EMPTY_ARRAY, isEditing) {
     </div>
   );
 }
-
 export default TagsRenderer;
+
+TagsRenderer.propTypes = {
+  tags: instanceOf(Array),
+  isEditing: bool,
+};
+
+TagsRenderer.defaultProps = {
+  tags: EMPTY_ARRAY,
+  isEditing: false,
+};

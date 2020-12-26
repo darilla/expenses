@@ -1,8 +1,6 @@
-import { EMPTY_ARRAY } from '../../common/constants';
+import { EMPTY_ARRAY, EMPTY_STRING, NO_VALUE } from '../../common/constants';
 
 export const NO_DATA_PLACEHOLDER = '-';
-export const DEFAULT_NUMBER = 0;
-
 export const TAG = {
   shopping: {
     color: 'volcano',
@@ -32,10 +30,10 @@ export const TAGS = Object.keys(TAG).map(key => ({
 }));
 
 export const ROW_DEFAULT_FIELDS = {
-  costs: DEFAULT_NUMBER,
-  date: NO_DATA_PLACEHOLDER,
-  name: NO_DATA_PLACEHOLDER,
-  note: NO_DATA_PLACEHOLDER,
+  costs: EMPTY_STRING,
+  date: NO_VALUE,
+  name: EMPTY_STRING,
+  note: EMPTY_STRING,
   tags: EMPTY_ARRAY,
 };
 
