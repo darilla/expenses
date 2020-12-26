@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Typography } from 'antd';
 
+import { NO_VALUE } from '../../common/constants';
+
 import { Container, List, Item } from './Navigation.styles';
 
 const { Text } = Typography;
@@ -27,7 +29,7 @@ function Navigation() {
       case STATISTICS:
         return setActiveLink(STATISTICS);
       default:
-        return null;
+        return NO_VALUE;
     }
   }, []);
 
