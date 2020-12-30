@@ -3,10 +3,45 @@ import { Button } from 'antd';
 
 import { PURPLE } from '../../common/colors';
 
+const CELL_PADDING_PX = '8px';
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  .ant-table-tbody td.ant-table-cell {
+    height: 117px;
+    padding: ${CELL_PADDING_PX};
+  }
+
+  .ant-table-row > td.ant-table-cell > div {
+    height: 100%;
+    margin: 0;
+  }
+
+  .ant-picker {
+    width: 70%;
+  }
+
+  .ant-tag {
+    margin: 0;
+  }
+
+  /* Style for action cell. */
+  .ant-table-row td:last-child {
+    padding: ${CELL_PADDING_PX};
+  }
+
+  /* Fix for tags cell so it's aligned with other cells. */
+  .ant-table-cell > div > div {
+    height: 100%;
+  }
+
+  /* Set height for all components wrappers. */
+  .ant-col .ant-form-item-control {
+    height: 35px;
+  }
 `;
 
 export const StyledAddRowButton = styled(Button)`

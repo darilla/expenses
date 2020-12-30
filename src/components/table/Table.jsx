@@ -7,12 +7,7 @@ import { EMPTY_ARRAY } from '../../common/constants';
 
 import useTableDetails from './hooks/useTableDetails';
 
-import {
-  ActionButtons,
-  DateRenderer,
-  EditableCell,
-  TagsRenderer,
-} from './components';
+import { ActionButtons, EditableCell, TagsRenderer } from './components';
 import { TABLE_I18N, TAGS } from './constants';
 import { Container, StyledAddRowButton } from './Table.styles';
 
@@ -30,13 +25,13 @@ function Table({ records }) {
   const {
     data,
     editingKey,
-    form,
     handleAdd,
     handleCancel,
     handleDelete,
     handleEdit,
     handleSave,
     isEditing,
+    form,
   } = useTableDetails(records);
 
   // @todo - refactor
@@ -44,43 +39,50 @@ function Table({ records }) {
     {
       dataIndex: 'name',
       editable: true,
-      filters: getUniqueNames(data),
+      required: true,
+      filters: !editingKey && getUniqueNames(data),
       onFilter: (value, record) => filterList(value, record.name),
       title: 'Name',
       width: 200,
     },
     {
       dataIndex: 'date',
+      editable: true,
+      inputType: 'date',
+      required: true,
       title: 'Date',
-      render: (date, record) => DateRenderer(date, isEditing(record)),
       width: 400,
     },
     {
       dataIndex: 'costs',
-      inputType: 'number',
       editable: true,
+      inputType: 'number',
+      required: true,
       sorter: (firstRecord, nextRecord) => firstRecord.costs - nextRecord.costs,
       title: 'Costs',
       width: 200,
     },
     {
-      title: 'Tags',
       dataIndex: 'tags',
-      width: 200,
-      onFilter: (value, record) => filterList(value, record.tags),
+      inputType: 'tags',
       filters: TAGS,
-      render: (tags, record) => TagsRenderer(tags, isEditing(record)),
+      onFilter: (value, record) => filterList(value, record.tags),
+      title: 'Tags',
+      width: 250,
+      render: (tags, record) => (
+        <TagsRenderer form={form} tags={tags} isEditing={isEditing(record)} />
+      ),
     },
     {
-      title: 'Note',
+      dataIndex: 'note',
       editable: true,
       inputType: 'textarea',
-      dataIndex: 'note',
+      title: 'Note',
       width: 300,
     },
     {
       title: 'Action',
-      key: 'action',
+      dataIndex: 'action',
       render: (_, record) => (
         <ActionButtons
           editingKey={editingKey}
@@ -108,6 +110,7 @@ function Table({ records }) {
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
+        required: col.required,
       }),
     };
   });

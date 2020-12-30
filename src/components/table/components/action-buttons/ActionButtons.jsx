@@ -1,8 +1,8 @@
 import React from 'react';
-import { func, instanceOf, bool, string } from 'prop-types';
+import { func, instanceOf, bool, number } from 'prop-types';
 import { Button, Popconfirm } from 'antd';
 
-import { EMPTY_STRING } from '../../../../common/constants';
+import { NO_VALUE } from '../../../../common/constants';
 
 import { TABLE_I18N } from '../../constants';
 
@@ -22,14 +22,17 @@ function ActionButtons({
   isRowEditable,
   record,
 }) {
-  const isButtonDisabled = editingKey !== EMPTY_STRING;
+  const isButtonDisabled = editingKey !== NO_VALUE;
 
   return isRowEditable ? (
     <div>
-      <Button ghost type='primary' onClick={() => handleSave(record.key)}>
+      <Button type='submit' onClick={() => handleSave(record.key)}>
         {SAVE_BTN}
       </Button>
-      <Popconfirm title={CANCEL_POPUP} onConfirm={handleCancel}>
+      <Popconfirm
+        onConfirm={() => handleCancel(record.key)}
+        title={CANCEL_POPUP}
+      >
         <StyledButton type='dashed' danger>
           {CANCEL_BTN}
         </StyledButton>
@@ -41,8 +44,8 @@ function ActionButtons({
         {EDIT_BTN}
       </Button>
       <Popconfirm
-        title={DELETE_POPUP}
         onConfirm={() => handleDelete(record.key)}
+        title={DELETE_POPUP}
       >
         <StyledButton ghost disabled={isButtonDisabled} type='danger'>
           {DELETE_BTN}
@@ -53,7 +56,7 @@ function ActionButtons({
 }
 
 ActionButtons.propTypes = {
-  editingKey: string,
+  editingKey: number,
   handleCancel: func.isRequired,
   handleDelete: func.isRequired,
   handleEdit: func.isRequired,
@@ -63,7 +66,7 @@ ActionButtons.propTypes = {
 };
 
 ActionButtons.defaultProps = {
-  editingKey: EMPTY_STRING,
+  editingKey: NO_VALUE,
   isRowEditable: false,
 };
 
