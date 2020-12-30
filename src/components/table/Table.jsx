@@ -68,7 +68,7 @@ function Table({ records }) {
       filters: TAGS,
       onFilter: (value, record) => filterList(value, record.tags),
       title: 'Tags',
-      width: 200,
+      width: 250,
       render: (tags, record) => (
         <TagsRenderer form={form} tags={tags} isEditing={isEditing(record)} />
       ),

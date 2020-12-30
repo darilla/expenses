@@ -66,7 +66,7 @@ ActionButtons.propTypes = {
 };
 
 ActionButtons.defaultProps = {
-  editingKey: null,
+  editingKey: NO_VALUE,
   isRowEditable: false,
 };
 

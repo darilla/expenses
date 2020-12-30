@@ -52,7 +52,7 @@ function EditableCell({
   required,
   ...restProps
 }) {
-  const rules = [{ required, message: `${dataIndex} filed is required` }];
+  const rules = [{ required, message: 'This filed is required' }];
 
   return (
     <td {...restProps}>
