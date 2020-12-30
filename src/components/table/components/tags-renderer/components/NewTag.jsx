@@ -11,10 +11,10 @@ import {
 
 import { TAG } from '../../../constants';
 
-import { StyledNewTag } from '../TagsRenderer.styles';
+import { StyledNewTag, TagWrapper } from '../TagsRenderer.styles';
 
 const NOT_EXISTING_DATA = -1;
-const INPUT_STYLE = { width: '170px' };
+const INPUT_STYLE = { width: '170px', margin: '8px' };
 const { Item } = Form;
 
 const getRandomColor = () =>
@@ -91,10 +91,12 @@ function NewTag({ recordTags, updateRecordTags }) {
           value={inputValue}
         />
       ) : (
-        <StyledNewTag onClick={handleClick}>
-          <PlusOutlined />
-          <span>New Tag</span>
-        </StyledNewTag>
+        <TagWrapper>
+          <StyledNewTag onClick={handleClick}>
+            <PlusOutlined />
+            <span>New Tag</span>
+          </StyledNewTag>
+        </TagWrapper>
       )}
     </Item>
   );

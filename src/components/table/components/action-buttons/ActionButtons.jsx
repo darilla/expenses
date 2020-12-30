@@ -26,10 +26,13 @@ function ActionButtons({
 
   return isRowEditable ? (
     <div>
-      <Button ghost type='primary' onClick={() => handleSave(record.key)}>
+      <Button type='submit' onClick={() => handleSave(record.key)}>
         {SAVE_BTN}
       </Button>
-      <Popconfirm title={CANCEL_POPUP} onConfirm={handleCancel}>
+      <Popconfirm
+        onConfirm={() => handleCancel(record.key)}
+        title={CANCEL_POPUP}
+      >
         <StyledButton type='dashed' danger>
           {CANCEL_BTN}
         </StyledButton>
@@ -41,8 +44,8 @@ function ActionButtons({
         {EDIT_BTN}
       </Button>
       <Popconfirm
-        title={DELETE_POPUP}
         onConfirm={() => handleDelete(record.key)}
+        title={DELETE_POPUP}
       >
         <StyledButton ghost disabled={isButtonDisabled} type='danger'>
           {DELETE_BTN}

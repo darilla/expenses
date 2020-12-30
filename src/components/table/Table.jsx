@@ -64,12 +64,13 @@ function Table({ records }) {
     },
     {
       dataIndex: 'tags',
+      inputType: 'tags',
       filters: TAGS,
       onFilter: (value, record) => filterList(value, record.tags),
       title: 'Tags',
       width: 200,
       render: (tags, record) => (
-        <TagsRenderer tags={tags} isEditing={isEditing(record)} />
+        <TagsRenderer form={form} tags={tags} isEditing={isEditing(record)} />
       ),
     },
     {
