@@ -1,37 +1,33 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { string, func } from 'prop-types';
 import { Typography } from 'antd';
 
-import { NO_VALUE } from '../../common/constants';
+import { NAVIGATION, NO_VALUE } from '../../common/constants';
 
 import { Container, List, Item } from './Navigation.styles';
 
 const { Text } = Typography;
 
-const NAV_LINK = {
-  HOME: 'Home',
-  SAVINGS: 'Savings',
-  STATISTICS: 'Statistics',
-};
+const { HOME, PAYMENT, STATISTICS } = NAVIGATION;
 
-const { HOME, SAVINGS, STATISTICS } = NAV_LINK;
+function Navigation({ activeLink, setActiveLink }) {
+  const handleClick = useCallback(
+    e => {
+      const name = e.currentTarget.getAttribute('name');
 
-function Navigation() {
-  const [activeLink, setActiveLink] = useState(HOME);
-
-  const handleClick = useCallback(e => {
-    const name = e.currentTarget.getAttribute('name');
-
-    switch (name) {
-      case HOME:
-        return setActiveLink(HOME);
-      case SAVINGS:
-        return setActiveLink(SAVINGS);
-      case STATISTICS:
-        return setActiveLink(STATISTICS);
-      default:
-        return NO_VALUE;
-    }
-  }, []);
+      switch (name) {
+        case HOME:
+          return setActiveLink(HOME);
+        case PAYMENT:
+          return setActiveLink(PAYMENT);
+        case STATISTICS:
+          return setActiveLink(STATISTICS);
+        default:
+          return NO_VALUE;
+      }
+    },
+    [setActiveLink],
+  );
 
   return (
     <Container>
@@ -41,21 +37,26 @@ function Navigation() {
         </Item>
         <Item
           onClick={handleClick}
-          name={SAVINGS}
-          isActive={activeLink === SAVINGS}
+          name={PAYMENT}
+          isActive={activeLink === PAYMENT}
         >
-          <Text>Savings</Text>
+          <Text>{PAYMENT}</Text>
         </Item>
         <Item
           onClick={handleClick}
           name={STATISTICS}
           isActive={activeLink === STATISTICS}
         >
-          <Text>Statistics</Text>
+          <Text>{STATISTICS}</Text>
         </Item>
       </List>
     </Container>
   );
 }
+
+Navigation.propTypes = {
+  activeLink: string.isRequired,
+  setActiveLink: func.isRequired,
+};
 
 export default Navigation;
