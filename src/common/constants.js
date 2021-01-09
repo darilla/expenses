@@ -19,3 +19,11 @@ export const EMPTY_OBJECT = freeze({});
 export const NO_VALUE = freeze(null);
 
 export const DATE_FORMAT = 'DD MMM YYYY';
+
+export const NAVIGATION = {
+  HOME: 'Home',
+  PAYMENT: 'Payment',
+  STATISTICS: 'Statistics',
+};
+
+export const NAV_HEIGHT = '60px';

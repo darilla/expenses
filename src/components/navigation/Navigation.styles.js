@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
+import { NAV_HEIGHT } from '../../common/constants';
 import { PURPLE, GRAY } from '../../common/colors';
 
 export const Container = styled.nav`
   background: ${GRAY.GRAY_1};
   box-shadow: 1px 1px 1px 1px ${GRAY.GRAY_5};
   display: flex;
+  height: ${NAV_HEIGHT};
   justify-content: flex-end;
   padding: 16px;
 `;
