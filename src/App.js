@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'sanitize.css';
 import 'antd/dist/antd.css';
 
-import { EMPTY_ARRAY } from './common/constants';
+import { EMPTY_ARRAY, NAVIGATION } from './common/constants';
 
-import { Table, Navigation } from './components';
+import { Table, Navigation, Statistics, Timeline } from './components';
 import { Container } from './App.styles';
 
+const { HOME, PAYMENT, STATISTICS } = NAVIGATION;
+
 function App() {
+  const [activeLink, setActiveLink] = useState(PAYMENT);
+
   return (
     <Container>
-      <Navigation />
-      <Table records={EMPTY_ARRAY} />
+      <Navigation activeLink={activeLink} setActiveLink={setActiveLink} />
+      {activeLink === HOME && <Table records={EMPTY_ARRAY} />}
+      {activeLink === PAYMENT && <Timeline />}
+      {activeLink === STATISTICS && <Statistics />}
     </Container>
   );
 }
