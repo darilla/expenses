@@ -23,6 +23,7 @@ function TimelinePayment({ payment, editPayment, className }) {
     <Item
       className={className}
       color={color}
+      // @todo - Use key generator.
       key={Math.random()}
       dot={
         <Tooltip placement='bottom' title={text}>

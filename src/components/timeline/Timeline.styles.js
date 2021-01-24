@@ -11,11 +11,13 @@ export const Container = styled.div`
   padding-top: 32px;
 
   // Remove white background from icons.
-  .ant-timeline-item-head-custom {
+  .ant-timeline-item-head-custom,
+  .ant-btn-icon-only {
     background: transparent;
+    border: none;
   }
 
-  button {
+  .payment-btn {
     align-items: center;
     background: ${PURPLE.PURPLE_5};
     border: ${PURPLE.PURPLE_7};
