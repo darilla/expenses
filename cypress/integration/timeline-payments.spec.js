@@ -2,7 +2,7 @@ const name = 'Payment for June';
 
 describe('Timeline', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
     cy.get('button[data-cy=add-new-payment-btn]').click();
     cy.get('.ant-modal');
   });
