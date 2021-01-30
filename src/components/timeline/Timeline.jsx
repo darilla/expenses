@@ -49,6 +49,7 @@ function Timeline() {
       <Tooltip title='Add a new payment'>
         <Button
           className='payment-btn'
+          data-cy='add-new-payment-btn'
           icon={<PlusOutlined />}
           onClick={toggleModal}
           shape='circle'

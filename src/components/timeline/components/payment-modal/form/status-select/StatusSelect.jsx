@@ -10,7 +10,10 @@ const { Option } = Select;
 function StatusSelect() {
   return (
     <StyledItem name='status' label='Status'>
-      <Select dropdownClassName='payment-status-dropdown'>
+      <Select
+        data-cy='status-select'
+        dropdownClassName='payment-status-dropdown'
+      >
         {Object.keys(paymentStatus).map(statusName => (
           <Option value={statusName} key={statusName}>
             {paymentStatus[statusName].icon}

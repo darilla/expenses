@@ -28,6 +28,7 @@ function TimelinePayment({ payment, editPayment, className }) {
       dot={
         <Tooltip placement='bottom' title={text}>
           <Button
+            data-cy='timeline-payment-status-button'
             icon={icon}
             onClick={() => editPayment(payment)}
             style={BUTTON_STYLE}

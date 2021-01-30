@@ -84,10 +84,11 @@ function PaymentForm({
 
   return (
     <Form
-      name='payment-form'
+      data-cy='payment-form-name'
       form={form}
-      onFinish={handleFormSubmit}
       initialValues={INITIAL_VALUES}
+      name='payment-form'
+      onFinish={handleFormSubmit}
       {...layout}
     >
       <Item
