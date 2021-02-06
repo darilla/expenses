@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { string, bool, instanceOf } from 'prop-types';
@@ -30,7 +31,7 @@ const textareaProps = {
 const renderEditableCell = inputType => {
   switch (inputType) {
     case 'number':
-      return <InputNumber placeholder={INPUT_NUMBER} />;
+      return <InputNumber min={0} placeholder={INPUT_NUMBER} />;
     case 'textarea':
       return <TextArea {...textareaProps} />;
     case 'date':
@@ -63,7 +64,11 @@ function EditableCell({
       ) : (
         // Data that is rendered is located on second place in the array.
         <div style={NOT_EDITABLE_CELL_STYLE}>
-          {children[1] ? children : EMPTY}
+          {children[1]
+            ? children
+            : inputType === 'number'
+            ? INPUT_NUMBER
+            : EMPTY}
         </div>
       )}
     </td>

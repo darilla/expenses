@@ -41,7 +41,6 @@ function Timeline() {
         {payments.map(payment => (
           <TimelinePayment
             editPayment={editPayment}
-            key={Math.random()}
             key={payment.name}
             payment={payment}
           />

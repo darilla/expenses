@@ -5,9 +5,7 @@ import moment from 'moment';
 
 import { EMPTY_ARRAY, DATE_FORMAT, NO_VALUE } from '../../../common/constants';
 
-import { ROW_DEFAULT_FIELDS } from '../constants';
-
-const { useForm } = Form;
+import { RECORD_DEFAULT_FIELDS } from '../constants';
 
 function useTableDetails(records) {
   const [data, updateData] = useState(records || EMPTY_ARRAY);
@@ -17,16 +15,16 @@ function useTableDetails(records) {
 
   const [editingKey, setEditingKey] = useState(NO_VALUE);
 
-  const [form] = useForm();
+  const [form] = Form.useForm();
 
   const isEditing = record => record.key === editingKey;
 
   const handleAdd = useCallback(() => {
     const newNumber = rowCount + 1;
     // Set initial values for a new record.
-    form.setFieldsValue({ ...ROW_DEFAULT_FIELDS, key: newNumber });
+    form.setFieldsValue({ ...RECORD_DEFAULT_FIELDS, key: newNumber });
 
-    updateData([{ ...ROW_DEFAULT_FIELDS, key: newNumber }, ...data]);
+    updateData([{ ...RECORD_DEFAULT_FIELDS, key: newNumber }, ...data]);
 
     setEditingKey(newNumber);
     setEditingNewRow(true);

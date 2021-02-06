@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { instanceOf, bool } from 'prop-types';
 import { CloseOutlined } from '@ant-design/icons';
+import { Form } from 'antd';
 
 import { EMPTY_ARRAY, NO_VALUE } from '../../../../common/constants';
 
@@ -43,28 +44,30 @@ function TagsRenderer({ tags, isEditing, form }) {
   }
 
   return (
-    <div>
-      {recordTags.map(tag => (
-        <TagWrapper>
-          <StyledTag
-            closable={isEditing}
-            closeIcon={<CloseOutlined onClick={handleCloseTag} name={tag} />}
-            color={TAG[tag]?.color}
-            key={tag}
-            name='tags'
-            value={tags}
-          >
-            {TAG[tag]?.name.toUpperCase()}
-          </StyledTag>
-        </TagWrapper>
-      ))}
-      {isEditing && (
-        <NewTag
-          recordTags={recordTags}
-          updateRecordTags={handleFormTagsUpdate}
-        />
-      )}
-    </div>
+    <Form.Item name='tags'>
+      <>
+        {recordTags.map(tag => (
+          <TagWrapper key={Math.random()}>
+            <StyledTag
+              closable={isEditing}
+              closeIcon={<CloseOutlined onClick={handleCloseTag} name={tag} />}
+              color={TAG[tag]?.color}
+              // @todo- refactor generating key value
+              name='tags'
+              value={tags}
+            >
+              {TAG[tag]?.name.toUpperCase()}
+            </StyledTag>
+          </TagWrapper>
+        ))}
+        {isEditing && (
+          <NewTag
+            recordTags={recordTags}
+            updateRecordTags={handleFormTagsUpdate}
+          />
+        )}
+      </>
+    </Form.Item>
   );
 }
 export default TagsRenderer;

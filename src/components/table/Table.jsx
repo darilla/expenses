@@ -34,6 +34,13 @@ function Table({ records }) {
     form,
   } = useTableDetails(records);
 
+  const customTags = form.getFieldValue().tags || [];
+
+  const customTagsFilterModel = Object.keys(customTags).map(key => ({
+    text: customTags[key],
+    value: customTags[key],
+  }));
+
   // @todo - refactor
   const COLUMNS = [
     {
@@ -65,7 +72,7 @@ function Table({ records }) {
     {
       dataIndex: 'tags',
       inputType: 'tags',
-      filters: TAGS,
+      filters: [...TAGS, ...customTagsFilterModel],
       onFilter: (value, record) => filterList(value, record.tags),
       title: 'Tags',
       width: 250,

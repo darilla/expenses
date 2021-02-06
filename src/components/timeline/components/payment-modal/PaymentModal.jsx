@@ -8,16 +8,12 @@ import { Modal } from '../../../index';
 
 import PaymentForm from './form/PaymentForm';
 
-const { useForm } = Form;
-
 const MODAL_TITLE = {
   ADD: 'Add payment',
   EDIT: 'Edit payment',
 };
 
 const MODAL_PROPS = { footer: NO_VALUE };
-
-const { useForm } = Form;
 
 function PaymentModal({
   confirm,
@@ -27,7 +23,7 @@ function PaymentModal({
   payment,
   visible,
 }) {
-  const [form] = useForm();
+  const [form] = Form.useForm();
 
   const closeModal = useCallback(() => {
     form.resetFields();

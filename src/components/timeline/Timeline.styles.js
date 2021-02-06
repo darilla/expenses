@@ -18,26 +18,6 @@ export const Container = styled.div`
   }
 
   .payment-btn {
-  .ant-timeline-item-head-custom {
-    background: transparent;
-  }
-
-  .payment-btn {
-    align-items: center;
-    background: ${PURPLE.PURPLE_5};
-    border: ${PURPLE.PURPLE_7};
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
-
-    :hover,
-    :active,
-    :focus {
-      background: ${PURPLE.PURPLE_6};
-    }
-  }
-
-  button {
     align-items: center;
     background: ${PURPLE.PURPLE_5};
     border: ${PURPLE.PURPLE_7};

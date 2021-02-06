@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { EMPTY_ARRAY, EMPTY_STRING, NO_VALUE } from '../../common/constants';
 
 export const NO_DATA_PLACEHOLDER = '-';
@@ -29,9 +30,9 @@ export const TAGS = Object.keys(TAG).map(key => ({
   value: TAG[key].name,
 }));
 
-export const ROW_DEFAULT_FIELDS = {
+export const RECORD_DEFAULT_FIELDS = {
   costs: EMPTY_STRING,
-  date: NO_VALUE,
+  date: moment(),
   name: EMPTY_STRING,
   note: EMPTY_STRING,
   tags: EMPTY_ARRAY,
