@@ -14,17 +14,24 @@ const BUTTON_TEXT = {
 
 function ActionButtons({ isEditing, deletePayment, cancelPayment }) {
   const buttonText = isEditing ? BUTTON_TEXT.DELETE : BUTTON_TEXT.CANCEL;
+ 
   return (
     <Container>
       <Item>
-        <Popconfirm
-          onConfirm={isEditing ? deletePayment : cancelPayment}
-          title={`Are you sure you want to ${buttonText}`}
-        >
-          <Button ghost type='danger'>
+        {isEditing ? (
+          <Popconfirm
+            onConfirm={deletePayment}
+            title={`Are you sure you want to ${buttonText}`}
+          >
+            <Button ghost type='danger'>
+              {buttonText}
+            </Button>
+          </Popconfirm>
+        ) : (
+          <Button ghost type='danger' onClick={cancelPayment}>
             {buttonText}
           </Button>
-        </Popconfirm>
+        )}
       </Item>
       <Item>
         <Button type='primary' htmlType='submit'>

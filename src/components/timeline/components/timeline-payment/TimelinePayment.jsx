@@ -23,10 +23,12 @@ function TimelinePayment({ payment, editPayment, className }) {
     <Item
       className={className}
       color={color}
+      // @todo - Use key generator.
       key={Math.random()}
       dot={
         <Tooltip placement='bottom' title={text}>
           <Button
+            data-cy='timeline-payment-status-button'
             icon={icon}
             onClick={() => editPayment(payment)}
             style={BUTTON_STYLE}

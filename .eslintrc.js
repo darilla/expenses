@@ -1,6 +1,11 @@
 module.exports = {
   parser: 'babel-eslint',
-  extends: ['airbnb', 'prettier', 'prettier/react'],
+  extends: [
+    'airbnb',
+    'prettier',
+    'prettier/react',
+    'plugin:cypress/recommended',
+  ],
   env: {
     es6: true,
     browser: true,
