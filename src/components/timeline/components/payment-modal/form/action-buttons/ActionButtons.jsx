@@ -14,6 +14,7 @@ const BUTTON_TEXT = {
 
 function ActionButtons({ isEditing, deletePayment, cancelPayment }) {
   const buttonText = isEditing ? BUTTON_TEXT.DELETE : BUTTON_TEXT.CANCEL;
+ 
   return (
     <Container>
       <Item>

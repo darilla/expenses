@@ -12,6 +12,8 @@ import {
   EMPTY_STRING,
 } from '../../../../../common/constants';
 
+import { DATE_FORMAT, EMPTY_ARRAY } from '../../../../../common/constants';
+
 import ActionButtons from './action-buttons/ActionButtons';
 import StatusSelect from './status-select/StatusSelect';
 
@@ -79,6 +81,7 @@ function PaymentForm({
     displayNotification({
       message: `Payment "${values.name}" deleted!`,
     });
+ 
     form.resetFields();
   }, [deletePayment, payment, form, displayNotification]);
 

@@ -1,11 +1,14 @@
 import React, { useCallback } from 'react';
 import { bool, func, instanceOf } from 'prop-types';
 import { Form } from 'antd';
+
 import { NO_VALUE } from '../../../../common/constants';
 
 import { Modal } from '../../../index';
 
 import PaymentForm from './form/PaymentForm';
+
+const { useForm } = Form;
 
 const MODAL_TITLE = {
   ADD: 'Add payment',

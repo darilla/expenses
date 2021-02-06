@@ -42,6 +42,7 @@ function Timeline() {
           <TimelinePayment
             editPayment={editPayment}
             key={Math.random()}
+            key={payment.name}
             payment={payment}
           />
         ))}
