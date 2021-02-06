@@ -4,7 +4,13 @@ import { func, instanceOf } from 'prop-types';
 import { DatePicker, Form, Input } from 'antd';
 import moment from 'moment';
 
-import { DATE_FORMAT, EMPTY_ARRAY } from '../../../../../common/constants';
+import { paymentStatus } from '../../../constants';
+
+import {
+  DATE_FORMAT,
+  EMPTY_ARRAY,
+  EMPTY_STRING,
+} from '../../../../../common/constants';
 
 import ActionButtons from './action-buttons/ActionButtons';
 import StatusSelect from './status-select/StatusSelect';
@@ -25,14 +31,21 @@ const layout = {
 const DATE_COMPONENT_STYLE = { width: '100%' };
 
 const INITIAL_VALUES = {
-  name: '',
+  name: EMPTY_STRING,
   paymentDate: moment(),
   paymentPeriod: EMPTY_ARRAY,
-  status: 'onTime',
+  status: paymentStatus.onTime.value,
 };
 
-function PaymentForm({ form, confirm, handleCancel, payment, deletePayment }) {
-  if (payment) {
+function PaymentForm({
+  confirm,
+  deletePayment,
+  displayNotification,
+  form,
+  handleCancel,
+  payment,
+}) {
+  if (form && payment) {
     form.setFieldsValue({
       name: payment.name,
       status: payment.status,
@@ -46,23 +59,36 @@ function PaymentForm({ form, confirm, handleCancel, payment, deletePayment }) {
 
     if (payment) {
       confirm({ ...values, key: payment.key });
+
+      displayNotification({
+        message: `Payment "${values.name}" updated!`,
+      });
     } else {
       confirm(values);
+
+      displayNotification({
+        message: `Payment "${values.name}" created!`,
+      });
     }
+  }, [form, confirm, payment, displayNotification]);
 
-    form.resetFields();
-  }, [form, confirm, payment]);
-
-  const handleDelete = useCallback(() => {
-    form.resetFields();
+  const handleDelete = useCallback(async () => {
+    const values = await form.getFieldsValue();
     deletePayment(payment);
-  }, [deletePayment, payment, form]);
+
+    displayNotification({
+      message: `Payment "${values.name}" deleted!`,
+    });
+    form.resetFields();
+  }, [deletePayment, payment, form, displayNotification]);
 
   return (
     <Form
+      data-cy='payment-form-name'
       form={form}
-      onFinish={handleFormSubmit}
       initialValues={INITIAL_VALUES}
+      name='payment-form'
+      onFinish={handleFormSubmit}
       {...layout}
     >
       <Item
@@ -116,15 +142,17 @@ function PaymentForm({ form, confirm, handleCancel, payment, deletePayment }) {
 }
 
 PaymentForm.propTypes = {
-  form: instanceOf(Object).isRequired,
-  handleCancel: func.isRequired,
   confirm: func.isRequired,
   deletePayment: func.isRequired,
+  displayNotification: func.isRequired,
+  form: instanceOf(Object),
+  handleCancel: func.isRequired,
   payment: instanceOf(Object),
 };
 
 PaymentForm.defaultProps = {
   payment: null,
+  form: null,
 };
 
 export default PaymentForm;

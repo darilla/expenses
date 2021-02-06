@@ -1,15 +1,24 @@
-/* eslint-disable no-param-reassign */
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 import { EMPTY_ARRAY, NO_VALUE } from '../../../common/constants';
 
 function useTimelineDetails() {
+  const [notification, displayNotification] = useState(null);
+
   const [payments, updatePayments] = useState(EMPTY_ARRAY);
   const [paymentDetails, updatePaymentDetails] = useState(NO_VALUE);
 
   const [visible, setVisible] = useState(false);
 
   const toggleModal = useCallback(() => setVisible(!visible), [visible]);
+
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        displayNotification(null);
+      }, 3000);
+    }
+  }, [notification]);
 
   const handleCancel = useCallback(() => {
     toggleModal();
@@ -57,15 +66,17 @@ function useTimelineDetails() {
   );
 
   return {
-    editPayment,
-    toggleModal,
-    updatePaymentDetails,
-    paymentDetails,
     confirm: handleConfirm,
+    deletePayment,
+    displayNotification,
+    editPayment,
     handleCancel,
     isModalVisible: visible,
+    notification,
+    paymentDetails,
     payments,
-    deletePayment,
+    toggleModal,
+    updatePaymentDetails,
   };
 }
 

@@ -27,3 +27,15 @@ export const NAVIGATION = {
 };
 
 export const NAV_HEIGHT = '60px';
+
+export const TOAST = {
+  success: {
+    type: 'success',
+  },
+  error: {
+    type: 'error',
+  },
+  info: {
+    type: 'info',
+  },
+};

@@ -11,7 +11,7 @@ function StatusSelect() {
   return (
     <StyledItem name='status' label='Status'>
       <Select
-        // @todo - Dropdown is rendered in modal, to access it global style provider needs to be created.
+        data-cy='status-select'
         dropdownClassName='payment-status-dropdown'
       >
         {Object.keys(paymentStatus).map(statusName => (

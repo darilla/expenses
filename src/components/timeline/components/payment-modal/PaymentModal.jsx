@@ -1,14 +1,11 @@
 import React, { useCallback } from 'react';
 import { bool, func, instanceOf } from 'prop-types';
 import { Form } from 'antd';
-
 import { NO_VALUE } from '../../../../common/constants';
 
 import { Modal } from '../../../index';
 
 import PaymentForm from './form/PaymentForm';
-
-const { useForm } = Form;
 
 const MODAL_TITLE = {
   ADD: 'Add payment',
@@ -17,8 +14,11 @@ const MODAL_TITLE = {
 
 const MODAL_PROPS = { footer: NO_VALUE };
 
+const { useForm } = Form;
+
 function PaymentModal({
   confirm,
+  displayNotification,
   deletePayment,
   handleCancel,
   payment,
@@ -31,6 +31,7 @@ function PaymentModal({
     handleCancel();
   }, [handleCancel, form]);
 
+  // @issue - Warning: findDOMNode is deprecated in StrictMode. - https://github.com/ant-design/ant-design/issues/22493
   return (
     <Modal
       handleCancel={closeModal}
@@ -41,6 +42,7 @@ function PaymentModal({
       <PaymentForm
         confirm={confirm}
         deletePayment={deletePayment}
+        displayNotification={displayNotification}
         form={form}
         handleCancel={closeModal}
         payment={payment}
@@ -52,6 +54,7 @@ function PaymentModal({
 PaymentModal.propTypes = {
   confirm: func.isRequired,
   deletePayment: func.isRequired,
+  displayNotification: func.isRequired,
   handleCancel: func.isRequired,
   payment: instanceOf(Object),
   visible: bool,
