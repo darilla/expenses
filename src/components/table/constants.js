@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { EMPTY_ARRAY, EMPTY_STRING, NO_VALUE } from '../../common/constants';
+import { EMPTY_ARRAY, EMPTY_STRING } from '../../common/constants';
 
 export const NO_DATA_PLACEHOLDER = '-';
 export const TAG = {
