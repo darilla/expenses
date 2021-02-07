@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { createGlobalStyle } from 'styled-components';
 
 import { EMPTY_ARRAY, NAVIGATION } from './common/constants';
+import { GRAY } from './common/colors';
 
 import { Table, Navigation, Statistics, Timeline } from './components';
 import { Container } from './App.styles';
@@ -14,6 +15,27 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-size: 14px;
     
+    .stats-date-picker {
+      width: 180px;
+      
+      input {
+        font-size: 20px;
+        color: ${GRAY.GRAY_9};
+      }
+
+      input::placeholder {
+        color: ${GRAY.GRAY_9};
+      }
+
+      .ant-picker-suffix {
+        svg {
+          fill: ${GRAY.GRAY_9};
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  
     .payment-status-dropdown .ant-select-item-option-content {
       display: flex;
       align-items: center;

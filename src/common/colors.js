@@ -13,6 +13,7 @@ export const BLUE = {
 };
 
 export const PURPLE = {
+  PURPLE_2: '#F7F5FA',
   PURPLE_3: '#d3adf7',
   PURPLE_4: '#b37feb',
   PURPLE_5: '#9254de',
